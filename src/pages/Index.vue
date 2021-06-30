@@ -37,12 +37,14 @@
 </template>
 
 <script lang="ts">
+// eslint-disable @typescript-eslint/no-unsafe-return
+// eslint-disable @typescript-eslint/no-unsafe-call
+
 import { computed, defineComponent, ref } from 'vue';
 import { QStepper } from 'quasar';
 
 export default defineComponent({
   name: 'PageIndex',
-  components: {},
   setup() {
     const stepper = ref(QStepper);
     const step = ref(1);
@@ -51,14 +53,9 @@ export default defineComponent({
     const hasEndedSecondStep = computed(() => step.value > 2);
     const hasEnded = computed(() => step.value >= 3);
 
-    const forward = (): void =>
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      !hasEnded.value ? stepper.value.next() : void 0;
+    const forward = () => stepper.value.next();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    const backward = (): void => stepper.value.previous();
+    const backward = () => stepper.value.previous();
 
     return {
       stepper,
@@ -72,3 +69,11 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.page-index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
