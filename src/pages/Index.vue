@@ -2,7 +2,7 @@
   <q-page class="page-index">
     <q-stepper v-model="step" color="primary" ref="stepper" animated>
       <q-step :done="hasEndedFirstStep" :name="1" icon="person" title="Paso 1">
-        To do component
+        <first-step />
       </q-step>
 
       <q-step :done="hasEndedSecondStep" :name="2" icon="group" title="Paso 2">
@@ -42,9 +42,11 @@
 
 import { computed, defineComponent, ref } from 'vue';
 import { QStepper } from 'quasar';
+import FirstStep from 'components/Steps/FirstStep.vue';
 
 export default defineComponent({
   name: 'PageIndex',
+  components: { FirstStep },
   setup() {
     const stepper = ref(QStepper);
     const step = ref(1);
