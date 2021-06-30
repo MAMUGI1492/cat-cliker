@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title>Cat-Cliker</q-toolbar-title>
+        <q-toolbar-title>StyleSage technical test</q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
