@@ -1,15 +1,15 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <q-stepper v-model="step" ref="stepper" color="primary" animated>
-      <q-step :name="1" title="Paso 1" icon="person" :done="step > 1">
+  <q-page class="page-index">
+    <q-stepper v-model="step" color="primary" ref="stepper" animated>
+      <q-step :done="hasEndedFirstStep" :name="1" icon="person" title="Paso 1">
         To do component
       </q-step>
 
-      <q-step :name="2" title="Paso 2" icon="group" :done="step > 2">
+      <q-step :done="hasEndedSecondStep" :name="2" icon="group" title="Paso 2">
         To do component
       </q-step>
 
-      <q-step :name="3" title="Paso 3" icon="space_dashboard">
+      <q-step :name="3" icon="space_dashboard" title="Paso 3">
         To do component
       </q-step>
 
@@ -47,18 +47,24 @@ export default defineComponent({
     const stepper = ref(QStepper);
     const step = ref(1);
 
+    const hasEndedFirstStep = computed(() => step.value > 1);
+    const hasEndedSecondStep = computed(() => step.value > 2);
     const hasEnded = computed(() => step.value >= 3);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     const forward = (): void =>
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       !hasEnded.value ? stepper.value.next() : void 0;
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     const backward = (): void => stepper.value.previous();
 
     return {
       stepper,
       step,
+      hasEndedFirstStep,
+      hasEndedSecondStep,
       hasEnded,
       forward,
       backward,
