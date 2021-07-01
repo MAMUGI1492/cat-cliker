@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */ /* eslint-disable
+@typescript-eslint/no-unsafe-return */
 <template>
   <q-page class="page-index">
     <q-stepper v-model="step" color="primary" ref="stepper" animated>
@@ -37,9 +39,6 @@
 </template>
 
 <script lang="ts">
-// eslint-disable @typescript-eslint/no-unsafe-return
-// eslint-disable @typescript-eslint/no-unsafe-call
-
 import { computed, defineComponent, ref } from 'vue';
 import { QStepper } from 'quasar';
 import FirstStep from 'components/Steps/FirstStep.vue';
