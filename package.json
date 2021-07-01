@@ -1,7 +1,7 @@
 {
-  "name": "StyleSage technical test",
+  "name": "stylesage_technical_test",
   "version": "0.0.1",
-  "productName": "stylesage_technical_test",
+  "productName": "StyleSage technical test",
   "author": "MAMUGI1492 <mmg1492@gmail.com>",
   "private": true,
   "scripts": {
