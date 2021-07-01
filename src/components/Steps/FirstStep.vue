@@ -1,10 +1,10 @@
 <template>
-  <q-card class="FirstStep">
-    <q-img :src="image.url" alt="Cat GIF" />
-
-    <q-card-actions>
-      <q-btn @click="counterIncrement" flat>{{ buttontText }}</q-btn>
-    </q-card-actions>
+  <q-card class="first-step">
+    <q-img :src="image" @click.stop="counterIncrement" alt="Cat GIF">
+      <div class="q-img--text">
+        {{ imageText }}
+      </div>
+    </q-img>
   </q-card>
 </template>
 
@@ -12,23 +12,10 @@
 import { computed, defineComponent, ref } from 'vue';
 import axios from 'axios';
 
-interface CatImage {
-  breed_ids?: null;
-  breeds: any[];
-  created_at?: string;
-  height: number;
-  id: string;
-  original_filename?: string;
-  sub_id?: string;
-  url: string;
-  width: number;
-}
-
 export default defineComponent({
   name: 'FirstStep',
-  components: {},
   setup() {
-    const image = ref({} as CatImage);
+    const image = ref('');
 
     const getImage = async (): Promise<void> => {
       try {
@@ -42,7 +29,7 @@ export default defineComponent({
         );
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        image.value = response.data[0] as CatImage;
+        image.value = response.data[0].url as string;
       } catch (err) {
         console.log(err);
       }
@@ -52,15 +39,33 @@ export default defineComponent({
 
     const counter = ref(0);
 
-    const buttontText = computed(() => `Contador: ${counter.value}`);
+    const imageText = computed(() => `Contador: ${counter.value}`);
 
     const counterIncrement = (): number => counter.value++;
 
     return {
-      buttontText,
+      imageText,
       counterIncrement,
       image,
     };
   },
 });
 </script>
+
+<style lang="scss" scoped>
+@import '/src/css/app.scss';
+
+.first-step {
+  .q-img {
+    cursor: pointer;
+
+    &--text {
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: flex-end;
+      @include h5;
+    }
+  }
+}
+</style>
