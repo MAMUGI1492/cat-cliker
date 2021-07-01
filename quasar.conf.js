@@ -138,37 +138,16 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: 'Cat-Clicker',
-        short_name: 'Cat-Clicker',
-        description: 'A Quasar Framework app',
+        name: 'stylesage_technical_test',
+        short_name: 'stylesage_t_t',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
         theme_color: '#027be3',
         icons: [
           {
-            src: 'icons/icon-128x128.png',
-            sizes: '128x128',
-            type: 'image/png',
-          },
-          {
-            src: 'icons/icon-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: 'icons/icon-256x256.png',
-            sizes: '256x256',
-            type: 'image/png',
-          },
-          {
-            src: 'icons/icon-384x384.png',
-            sizes: '384x384',
-            type: 'image/png',
-          },
-          {
-            src: 'icons/icon-512x512.png',
-            sizes: '512x512',
+            src: 'favicon.png',
+            sizes: '16x16',
             type: 'image/png',
           },
         ],
