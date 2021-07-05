@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */ /* eslint-disable
-@typescript-eslint/no-unsafe-return */
 <template>
   <q-page class="page-index">
     <q-stepper v-model="step" color="primary" ref="stepper" animated>
@@ -25,9 +23,8 @@
           />
 
           <q-btn
-            v-if="step > 1"
+            v-if="hasBegin"
             @click="backward"
-            class="q-ml-sm"
             color="primary"
             label="Atrás"
             flat
@@ -51,6 +48,7 @@ export default defineComponent({
     const hasEndedFirstStep = computed(() => step.value > 1);
     const hasEndedSecondStep = computed(() => step.value > 2);
     const hasEnded = computed(() => step.value >= 3);
+    const hasBegin = computed(() => step.value > 1);
 
     const forward = () => stepper.value.next();
 
@@ -59,6 +57,7 @@ export default defineComponent({
     return {
       stepper,
       step,
+      hasBegin,
       hasEndedFirstStep,
       hasEndedSecondStep,
       hasEnded,
@@ -74,5 +73,10 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .q-stepper .q-stepper__nav {
+    display: flex;
+    gap: 8px;
+  }
 }
 </style>
