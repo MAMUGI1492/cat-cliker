@@ -2,11 +2,15 @@
   <q-page class="page-index">
     <q-stepper v-model="step" color="primary" ref="stepper" animated>
       <q-step :done="hasEndedFirstStep" :name="1" icon="person" title="Paso 1">
-        <first-step />
+        <suspense-opinionated>
+          <first-step />
+        </suspense-opinionated>
       </q-step>
 
       <q-step :done="hasEndedSecondStep" :name="2" icon="group" title="Paso 2">
-        To do component
+        <suspense-opinionated>
+          <second-step />
+        </suspense-opinionated>
       </q-step>
 
       <q-step :name="3" icon="space_dashboard" title="Paso 3">
@@ -38,11 +42,13 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { QStepper } from 'quasar';
+import SuspenseOpinionated from 'src/components/SuspenseOpinionated.vue';
 import FirstStep from 'src/components/FirstStep.vue';
+import SecondStep from 'src/components/SecondStep.vue';
 
 export default defineComponent({
   name: 'PageIndex',
-  components: { FirstStep },
+  components: { FirstStep, SecondStep, SuspenseOpinionated },
   setup() {
     const stepper = ref(QStepper);
     const step = ref(1);
@@ -53,7 +59,6 @@ export default defineComponent({
     const hasBegin = computed(() => step.value > 1);
 
     const forward = () => stepper.value.next();
-
     const backward = () => stepper.value.previous();
 
     return {
@@ -72,13 +77,25 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .page-index {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .q-stepper {
+    height: 100%;
+    width: 100%;
 
-  .q-stepper .q-stepper__nav {
-    display: flex;
-    gap: 8px;
+    .q-stepper__nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .q-stepper__step ::v-deep .q-stepper__step-content .q-stepper__step-inner {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+
+      .q-card {
+        width: 40%;
+        min-width: 300px;
+      }
+    }
   }
 }
 </style>
