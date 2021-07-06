@@ -18,7 +18,7 @@
     />
 
     <div v-else class="kitten-fallback">
-      <span>No has seleccionado nigún gatito</span>
+      <span>No has seleccionado ningún gatito</span>
       <q-icon name="sentiment_very_dissatisfied" size="xl" />
     </div>
   </div>
