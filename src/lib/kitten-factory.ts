@@ -17,7 +17,6 @@ interface KittenImageResponse {
 const getImageURL = async (
   kittensNumber: number
 ): Promise<KittenImageResponse[]> => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   axios.defaults.headers.common['x-api-key'] =
     '6559f77b-4bda-4225-a8cb-a008a2c446e9';
 
@@ -38,7 +37,6 @@ interface KittenNameResponse {
 const getName = async (
   kittensNumber: number
 ): Promise<KittenNameResponse[]> => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   axios.defaults.headers.common['x-api-key'] = 'uVxfqCsg';
 
   const response = await axios.get(
@@ -46,7 +44,6 @@ const getName = async (
     { params: { rows: kittensNumber, format: 'json' } }
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const nameKittens = response.data.rows as KittenNameResponse[];
 
   return nameKittens;
