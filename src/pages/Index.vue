@@ -14,24 +14,26 @@
       </q-step>
 
       <q-step :name="3" icon="space_dashboard" title="Paso 3">
-        To do component
+        <suspense-opinionated>
+          <third-step />
+        </suspense-opinionated>
       </q-step>
 
       <template v-slot:navigation>
         <q-stepper-navigation>
-          <q-btn
-            @click="forward"
-            :disable="hasEnded"
-            color="primary"
-            label="Continuar"
-          />
-
           <q-btn
             v-if="hasBegin"
             @click="backward"
             color="primary"
             label="Atrás"
             flat
+          />
+
+          <q-btn
+            @click="forward"
+            :disable="hasEnded"
+            color="primary"
+            label="Continuar"
           />
         </q-stepper-navigation>
       </template>
@@ -45,10 +47,11 @@ import { QStepper } from 'quasar';
 import SuspenseOpinionated from 'src/components/SuspenseOpinionated.vue';
 import FirstStep from 'src/components/FirstStep.vue';
 import SecondStep from 'src/components/SecondStep.vue';
+import ThirdStep from 'src/components/ThirdStep.vue';
 
 export default defineComponent({
   name: 'PageIndex',
-  components: { FirstStep, SecondStep, SuspenseOpinionated },
+  components: { FirstStep, SecondStep, SuspenseOpinionated, ThirdStep },
   setup() {
     const stepper = ref(QStepper);
     const step = ref(1);
@@ -86,15 +89,10 @@ export default defineComponent({
       gap: 8px;
     }
 
-    .q-stepper__step ::v-deep .q-stepper__step-content .q-stepper__step-inner {
+    .q-stepper__step ::v-deep(.q-stepper__step-content .q-stepper__step-inner) {
       display: flex;
       justify-content: center;
       width: 100%;
-
-      .q-card {
-        width: 40%;
-        min-width: 300px;
-      }
     }
   }
 }
