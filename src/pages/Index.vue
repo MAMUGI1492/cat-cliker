@@ -1,6 +1,12 @@
 <template>
   <q-page class="page-index">
-    <q-stepper v-model="step" color="primary" ref="stepper" animated>
+    <q-stepper
+      v-model="step"
+      :keep-alive="true"
+      color="primary"
+      ref="stepper"
+      animated
+    >
       <q-step :done="hasEndedFirstStep" :name="1" icon="person" title="Paso 1">
         <suspense-opinionated>
           <first-step />
