@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive } from 'vue';
+import { computed, defineComponent, ref, watch } from 'vue';
 import LoadSpinner from 'src/components/LoadSpinner.vue';
 import { KittyInterface } from 'src/lib/kitten-factory';
 
@@ -25,21 +25,32 @@ export default defineComponent({
   name: 'KittenCard',
   components: { LoadSpinner },
   props: {
-    kitty: {
+    kitten: {
       default: () => ({ counter: 0, name: fallbackName, url: 'cat.gif' }),
       type: Object,
     },
   },
-  setup(props) {
-    const kittenState = reactive(props.kitty) as KittyInterface;
+  emits: ['increase-counter'],
+  setup(props, { emit }) {
+    const kittenState = ref(props.kitten as KittyInterface);
 
-    const counterIncrement = (): number => kittenState.counter++;
+    const counterIncrement = () => emit('increase-counter');
 
-    const counterText = computed(() => `Contador: ${kittenState.counter}`);
+    const counterText = computed(
+      () => `Contador: ${kittenState.value.counter}`
+    );
 
-    const hasName = computed(() => !!kittenState.name);
+    const hasName = computed(() => !!kittenState.value.name);
     const nameText = computed(
-      () => `Nombre: ${kittenState.name ? kittenState.name : fallbackName}`
+      () =>
+        `Nombre: ${
+          kittenState.value.name ? kittenState.value.name : fallbackName
+        }`
+    );
+
+    watch(
+      () => props.kitten,
+      () => (kittenState.value = props.kitten as KittyInterface)
     );
 
     return {
@@ -56,15 +67,19 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '/src/css/app.scss';
 
-.kitten-card .q-img {
-  cursor: pointer;
+.kitten-card {
+  @include column-size;
 
-  &--text {
-    left: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    @include h3;
+  .q-img {
+    cursor: pointer;
+
+    &--text {
+      left: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      @include h3;
+    }
   }
 }
 </style>

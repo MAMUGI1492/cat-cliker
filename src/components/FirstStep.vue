@@ -1,23 +1,25 @@
 <template>
-  <kitty-card :kitty="kitty" />
+  <kitten-card :kitten="kitten" @increase-counter="increaseCounter" />
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import KittyCard from 'src/components/KittenCard.vue';
+import KittenCard from 'src/components/KittenCard.vue';
 import { generateKittens, KittyInterface } from 'src/lib/kitten-factory';
 
 export default defineComponent({
   name: 'FirstStep',
-  components: { KittyCard },
+  components: { KittenCard },
   async setup() {
     const kittens = ref([] as KittyInterface[]);
 
-    const kitty = computed(() => ({ ...kittens.value[0], name: undefined }));
+    const kitten = computed(() => ({ ...kittens.value[0], name: undefined }));
+
+    const increaseCounter = () => kittens.value[0].counter++;
 
     kittens.value.push(...(await generateKittens()));
 
-    return { kitty };
+    return { increaseCounter, kitten };
   },
 });
 </script>

@@ -1,23 +1,30 @@
 <template>
   <div class="second-step">
-    <kitty-card v-for="(kitty, index) in kittens" :key="index" :kitty="kitty" />
+    <kitten-card
+      v-for="(kitten, index) in kittens"
+      :key="index"
+      :kitten="kitten"
+      @increase-counter="increaseCounter(index)"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import KittyCard from 'src/components/KittenCard.vue';
+import KittenCard from 'src/components/KittenCard.vue';
 import { generateKittens, KittyInterface } from 'src/lib/kitten-factory';
 
 export default defineComponent({
   name: 'SecondStep',
-  components: { KittyCard },
+  components: { KittenCard },
   async setup() {
     const kittens = ref([] as KittyInterface[]);
 
+    const increaseCounter = (index: number) => kittens.value[index].counter++;
+
     kittens.value.push(...(await generateKittens(2)));
 
-    return { kittens };
+    return { increaseCounter, kittens };
   },
 });
 </script>
