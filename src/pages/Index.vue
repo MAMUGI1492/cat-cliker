@@ -15,8 +15,5 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .page-index {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 </style>
