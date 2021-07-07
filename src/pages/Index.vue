@@ -29,14 +29,14 @@
         <q-stepper-navigation>
           <q-btn
             v-if="hasBegin"
-            @click="backward"
+            @click="$refs.stepper.previous()"
             color="primary"
             label="Atrás"
             flat
           />
 
           <q-btn
-            @click="forward"
+            @click="$refs.stepper.next()"
             :disable="hasEnded"
             color="primary"
             label="Continuar"
@@ -49,7 +49,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { QStepper } from 'quasar';
 import SuspenseOpinionated from 'src/components/SuspenseOpinionated.vue';
 import FirstStep from 'src/components/FirstStep.vue';
 import SecondStep from 'src/components/SecondStep.vue';
@@ -59,7 +58,6 @@ export default defineComponent({
   name: 'PageIndex',
   components: { FirstStep, SecondStep, SuspenseOpinionated, ThirdStep },
   setup() {
-    const stepper = ref(QStepper);
     const step = ref(1);
 
     const hasEndedFirstStep = computed(() => step.value > 1);
@@ -67,18 +65,12 @@ export default defineComponent({
     const hasEnded = computed(() => step.value >= 3);
     const hasBegin = computed(() => step.value > 1);
 
-    const forward = () => stepper.value.next();
-    const backward = () => stepper.value.previous();
-
     return {
-      stepper,
       step,
       hasBegin,
       hasEndedFirstStep,
       hasEndedSecondStep,
       hasEnded,
-      forward,
-      backward,
     };
   },
 });

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import axios from 'axios';
 
 interface KittenImageResponse {
@@ -14,9 +12,10 @@ interface KittenImageResponse {
   width: number;
 }
 
-const getImageURL = async (
+const getImageURLPromise = async (
   kittensNumber: number
 ): Promise<KittenImageResponse[]> => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   axios.defaults.headers.common['x-api-key'] =
     '6559f77b-4bda-4225-a8cb-a008a2c446e9';
 
@@ -34,9 +33,10 @@ interface KittenNameResponse {
   name: string;
 }
 
-const getName = async (
+const getNamePromise = async (
   kittensNumber: number
 ): Promise<KittenNameResponse[]> => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   axios.defaults.headers.common['x-api-key'] = 'uVxfqCsg';
 
   const response = await axios.get(
@@ -44,6 +44,7 @@ const getName = async (
     { params: { rows: kittensNumber, format: 'json' } }
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const nameKittens = response.data.rows as KittenNameResponse[];
 
   return nameKittens;
@@ -59,26 +60,33 @@ const generateKittens = async (
   kittensNumber = 1
 ): Promise<KittyInterface[]> => {
   const responses = await Promise.allSettled([
-    getImageURL(kittensNumber),
-    getName(kittensNumber),
+    getImageURLPromise(kittensNumber),
+    getNamePromise(kittensNumber),
   ]);
 
   const imageURLResponse = responses[0];
   const imageURLHasResponse =
     imageURLResponse.status === 'fulfilled' && imageURLResponse.value;
+  const getImageURL = (index: number) =>
+    imageURLHasResponse
+      ? (imageURLResponse as PromiseFulfilledResult<KittenImageResponse[]>)
+          .value[index].url
+      : 'cat.gif';
 
   const nameResponse = responses[1];
   const nameHasResponse =
     nameResponse.status === 'fulfilled' && nameResponse.value;
+  const getName = (index: number) =>
+    nameHasResponse
+      ? (nameResponse as PromiseFulfilledResult<KittenNameResponse[]>).value[
+          index
+        ].name
+      : 'Foo kitten';
 
   return Array.from({ length: kittensNumber }, (_, index) => ({
     counter: 0,
-    name: nameHasResponse
-      ? (nameResponse.value[index].name as string)
-      : 'Foo kitten',
-    url: imageURLHasResponse
-      ? (imageURLResponse.value[index].url as string)
-      : 'cat.gif',
+    name: getName(index),
+    url: getImageURL(index),
   }));
 };
 
