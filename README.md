@@ -1,26 +1,22 @@
-# Cat-Clicker (cat_clicker)
+# Animated Gifs - _CSS Layout_
 
-A Quasar Framework app
+## DEMO
 
-## Install the dependencies
-```bash
-npm install
-```
+_In progress_
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
+## Description
 
-### Lint the files
-```bash
-npm run lint
-```
+In this test I have given priority to the layout without the use of [Quasar](https://quasar.dev/)'s own components (in the end what is sought is to see these abilities, not to copy - paste the different components.
 
-### Build the app for production
-```bash
-quasar build
-```
+Due to the confidentiality restrictions imposed for this exercise, the _gifs.json_ file has not been uploaded to the repository, so when accessing the demo, the gifs and texts of the fallback created for the occasion will be loaded.
 
-### Customize the configuration
-See [Configuring quasar.conf.js](https://v2.quasar.dev/quasar-cli/quasar-conf-js).
+## Desirable enhancements
+
+With a little more time, I would have added a couple of extra features:
+
+- Automatic themes, with the possibility of being changed manually by the user (including the dark theme).
+- Multilanguage system (with at least English).
+
+## License
+
+MIT
