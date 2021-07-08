@@ -1,4 +1,4 @@
-# Cat-cliker - _CSS Layout_
+# Cat-cliker - _Frameworks Front-End_
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/643d5518-6f1c-4abe-928e-532c61629851/deploy-status)](https://app.netlify.com/sites/cat-clicker-stylesage/deploys)
 
