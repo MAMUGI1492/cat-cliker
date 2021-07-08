@@ -4,7 +4,7 @@
 
 ## DEMO
 
-[cat-clicker-stylesage.netlify.app/](https://cat-clicker-stylesage.netlify.app/)
+[cat-clicker-stylesage.netlify.app](https://cat-clicker-stylesage.netlify.app/)
 
 ## Description
 
