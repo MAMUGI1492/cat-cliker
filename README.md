@@ -1,8 +1,10 @@
 # Animated Gifs - _CSS Layout_
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a560f842-9159-41c2-9e85-33bf4c2aa882/deploy-status)](https://app.netlify.com/sites/animated-gifs-stylesage/deploys)
+
 ## DEMO
 
-_In progress_
+[animated-gifs-stylesage.netlify.app](https://animated-gifs-stylesage.netlify.app/)
 
 ## Description
 
