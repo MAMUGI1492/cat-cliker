@@ -50,6 +50,34 @@ const getNamePromise = async (
   return nameKittens;
 };
 
+const getImageURL = (
+  index: number,
+  imageURLResponse: PromiseSettledResult<KittenImageResponse[]>,
+  imageURLHasResponse: boolean
+) =>
+  imageURLHasResponse
+    ? (imageURLResponse as PromiseFulfilledResult<KittenImageResponse[]>).value[
+        index
+      ].url
+    : 'cat.gif';
+
+const getName = (
+  index: number,
+  nameResponse: PromiseSettledResult<KittenNameResponse[]>,
+  nameHasResponse: boolean
+) =>
+  nameHasResponse
+    ? (nameResponse as PromiseFulfilledResult<KittenNameResponse[]>).value[
+        index
+      ].name
+    : 'Foo kitten';
+
+const buildKitty = (name: string, url: string): KittyInterface => ({
+  counter: 0,
+  name,
+  url,
+});
+
 interface KittyInterface {
   counter: number;
   name?: string | 'Foo kitten';
@@ -65,29 +93,21 @@ const generateKittens = async (
   ]);
 
   const imageURLResponse = responses[0];
-  const imageURLHasResponse =
-    imageURLResponse.status === 'fulfilled' && imageURLResponse.value;
-  const getImageURL = (index: number) =>
-    imageURLHasResponse
-      ? (imageURLResponse as PromiseFulfilledResult<KittenImageResponse[]>)
-          .value[index].url
-      : 'cat.gif';
+  const imageURLHasResponse = !!(
+    imageURLResponse.status === 'fulfilled' && imageURLResponse.value
+  );
 
   const nameResponse = responses[1];
-  const nameHasResponse =
-    nameResponse.status === 'fulfilled' && nameResponse.value;
-  const getName = (index: number) =>
-    nameHasResponse
-      ? (nameResponse as PromiseFulfilledResult<KittenNameResponse[]>).value[
-          index
-        ].name
-      : 'Foo kitten';
+  const nameHasResponse = !!(
+    nameResponse.status === 'fulfilled' && nameResponse.value
+  );
 
-  return Array.from({ length: kittensNumber }, (_, index) => ({
-    counter: 0,
-    name: getName(index),
-    url: getImageURL(index),
-  }));
+  return Array.from({ length: kittensNumber }, (_, index) =>
+    buildKitty(
+      getName(index, nameResponse, nameHasResponse),
+      getImageURL(index, imageURLResponse, imageURLHasResponse)
+    )
+  );
 };
 
 export { generateKittens, KittyInterface };
